@@ -1,0 +1,70 @@
+buildscript {
+    ext {
+        springBootVersion = '1.2.0.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+        maven { url 'https://repo.spring.io/libs-snapshot' }
+        maven { url 'https://repo.spring.io/plugins-snapshot' }
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath 'io.spring.gradle:dependency-management-plugin:0.3.1.BUILD-SNAPSHOT'
+    }
+}
+
+apply plugin: 'groovy'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'spring-boot'
+apply plugin: 'io.spring.dependency-management'
+
+jar {
+    baseName = 'api-gateway'
+}
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    maven { url 'https://repo.spring.io/libs-milestone' }
+    maven { url 'https://repo.spring.io/libs-snapshot' }
+}
+
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.boot:spring-boot-dependencies:${springBootVersion}"
+        mavenBom 'org.springframework.cloud:spring-cloud-versions:1.0.0.BUILD-SNAPSHOT'
+    }
+}
+
+dependencies {
+    compile("org.springframework.data:spring-data-redis")
+    compile("redis.clients:jedis")
+    compile("org.springframework.session:spring-session-data-redis:1.0.0.RC1")
+    compile("org.springframework.cloud:spring-cloud-starter-security")
+    compile("org.springframework.cloud:spring-cloud-security")
+    compile("org.springframework.security.oauth:spring-security-oauth2")
+    compile("org.springframework.security:spring-security-jwt")
+    compile("org.springframework.cloud:spring-cloud-starter-zuul")
+    compile("org.springframework.boot:spring-boot-starter-security")
+    compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.springframework.boot:spring-boot-starter-actuator")
+    compile("joda-time:joda-time")
+    compile("com.fasterxml.jackson.datatype:jackson-datatype-joda")
+    compile("org.codehaus.groovy:groovy")
+    compile("org.springframework.cloud:spring-cloud-starter-eureka")
+    testCompile("org.springframework.boot:spring-boot-starter-test")
+}
+
+eclipse {
+    classpath {
+        containers.remove('org.eclipse.jdt.launching.JRE_CONTAINER')
+        containers 'org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8'
+    }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '1.12'
+}

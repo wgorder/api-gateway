@@ -1,0 +1,50 @@
+debug:
+spring:
+  application:
+    name: api-gateway
+
+server:
+  port: 8080
+
+zuul:
+  routes:
+    auth-server:
+      path: /uaa/**
+      stripPrefix: true
+    acme-ui:
+      path: /**
+      stripPrefix: true
+
+app:
+  host: localhost
+  redis:
+    host: localhost
+
+info:
+  component: API Gateway
+
+security:
+  basic:
+    enabled: false
+management:
+  security:
+    enabled: false
+oauth2:
+  sso:
+    home:
+      secure: false
+      path: /,/**
+  client:
+    accessTokenUri: http://${app.host}:8083/uaa/oauth/token
+    userAuthorizationUri: http://${app.host}:8083/uaa/oauth/authorize
+    clientId: acme
+    clientSecret: acmesecret
+  resource:
+    jwt:
+      keyUri: http://${app.host}:8083/uaa/oauth/token_key
+logging:
+  level:
+    ROOT: INFO
+    org.springframework.security: DEBUG
+    com.netflix.discovery: 'OFF'
+  file: /var/acme_logs/acme-gateway.log
