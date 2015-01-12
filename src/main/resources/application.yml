@@ -10,7 +10,7 @@ zuul:
   routes:
     auth-server:
       path: /uaa/**
-      stripPrefix: true
+      stripPrefix: false
     acme-ui:
       path: /**
       stripPrefix: true

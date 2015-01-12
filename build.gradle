@@ -42,7 +42,7 @@ dependencyManagement {
 dependencies {
     compile("org.springframework.data:spring-data-redis")
     compile("redis.clients:jedis")
-    compile("org.springframework.session:spring-session-data-redis:1.0.0.RC1")
+    compile("org.springframework.session:spring-session-data-redis:1.0.0.RELEASE")
     compile("org.springframework.cloud:spring-cloud-starter-security")
     compile("org.springframework.cloud:spring-cloud-security")
     compile("org.springframework.security.oauth:spring-security-oauth2")
@@ -52,6 +52,10 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework.boot:spring-boot-starter-actuator")
     compile("joda-time:joda-time")
+    //required for deserializing jpa objects which are in the spring-session
+    compile('org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.Final')
+    compile('org.hibernate:hibernate-entitymanager:4.3.7.Final')
+    compile('org.codehaus.groovy:groovy-json:2.3.8')
     compile("com.fasterxml.jackson.datatype:jackson-datatype-joda")
     compile("org.codehaus.groovy:groovy")
     compile("org.springframework.cloud:spring-cloud-starter-eureka")
