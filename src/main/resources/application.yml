@@ -14,7 +14,12 @@ zuul:
     acme-ui:
       path: /**
       stripPrefix: true
-
+eureka:
+  instance:
+    leaseRenewalIntervalInSeconds: 10
+  client:
+    serviceUrl:
+      defaultZone: http://${app.host}:8761/eureka/
 app:
   host: localhost
   redis:
